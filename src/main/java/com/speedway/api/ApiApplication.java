@@ -2,12 +2,10 @@ package com.speedway.api;
 
 import com.speedway.api.entity.Course;
 import com.speedway.api.entity.Student;
-import com.sun.tools.javac.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import sun.jvm.hotspot.code.Stub;
 
 import java.util.Set;
 
@@ -23,13 +21,25 @@ public class ApiApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         Student student = new Student();
         student.setId(1);
         student.setName("Shashi kumar");
-        Course course = new Course();
-        course.setId(1);
-        course.setName("Spring boot");
-        student.setLikedCourses(Set.of(course));
+
+        Course course1 = new Course();
+        course1.setId(1);
+        course1.setName("Spring");
+
+        Course course2 = new Course();
+        course2.setId(2);
+        course2.setName("Boot");
+
+        Course course3 = new Course();
+        course3.setId(3);
+        course3.setName("Application");
+
+        student.setLikedCourses(Set.of(course1,course2,course3));
+
         apiRepository.save(student);
     }
 }
