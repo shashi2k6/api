@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Optional;
 import java.util.Set;
 
 @SpringBootApplication
@@ -38,8 +39,19 @@ public class ApiApplication implements CommandLineRunner {
         course3.setId(3);
         course3.setName("Application");
 
-        student.setLikedCourses(Set.of(course1,course2,course3));
+        student.setLikedCourses(Set.of(course1, course2, course3));
+
+        Student student1 = new Student();
+        student1.setId(2);
+        student1.setName("kumar");
+        student1.setLikedCourses(Set.of(course1, course2, course3));
 
         apiRepository.save(student);
+        apiRepository.save(student1);
+
+        Optional<Student> studentFromDB = apiRepository.findById(1);
+        System.out.println("studentFromDB = " + studentFromDB);
+        studentFromDB.get().getLikedCourses().stream().forEach(System.out::println);
+
     }
 }

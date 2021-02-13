@@ -1,9 +1,10 @@
 package com.speedway.api.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,8 +16,8 @@ class Course {
 
     private String name;
 
-    @ManyToMany(mappedBy = "likedCourses")
-    Set<Student> likes;
+    @ManyToMany(mappedBy = "likedCourses",fetch = FetchType.EAGER)
+    private Set<Student> likes = new HashSet<>();
 
     public int getId() {
         return id;
@@ -40,5 +41,14 @@ class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", likes=" + likes +
+                '}';
     }
 }

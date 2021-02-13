@@ -1,6 +1,7 @@
 package com.speedway.api.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,12 +20,12 @@ public class Student {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "course_like",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
-    Set<Course> likedCourses;
+    private Set<Course> likedCourses = new HashSet<>();
 
     public int getId() {
         return id;
@@ -40,5 +41,13 @@ public class Student {
 
     public void setLikedCourses(Set<Course> likedCourses) {
         this.likedCourses = likedCourses;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
